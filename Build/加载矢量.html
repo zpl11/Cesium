@@ -1,0 +1,102 @@
+<!--
+ * @Author: 赵鹏龙
+ * @Date: 2022-02-14 11:07:06
+ * @LastEditors: 赵鹏龙
+ * @LastEditTime: 2022-02-15 14:37:54
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载矢量数据</title>
+</head>
+<link rel="stylesheet" href="./Cesium/Widgets/widgets.css">
+<script src="./Cesium/Cesium.js"></script>
+
+<body>
+    <div id="cesiumContainer" class="fullSize"></div>
+    <div id="loadingOverlay"><h1>Loading...</h1></div>
+    <div id="toolbar"></div>
+</body>
+
+<script>
+    const viewer = new Cesium.Viewer("cesiumContainer");
+
+    // geojson  topojson kml 等几种数据格式
+
+    // customDataSource
+    // CzmlDataSource
+    // GeoJsonDataSource
+    // KmlDataSource
+    let json = {
+        "type": "FeatureCollection",
+        "features": [
+            { "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [102.0, 0.5]},
+            "properties": {"prop0": "value0"}
+            },
+            { "type": "Feature",
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
+                ]
+                },
+            "properties": {
+                "prop0": "value0",
+                "prop1": 0.0
+                }
+            },
+            { "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
+                    [100.0, 1.0], [100.0, 0.0] ]
+                ]
+            },
+            "properties": {
+                "prop0": "value0",
+                "prop1": {"this": "that"}
+                }
+            }
+        ],
+    }
+    viewer.dataSources.add(
+        Cesium.GeoJsonDataSource.load(
+            json,
+            {
+                stroke: Cesium.Color.HOTPINK,
+                fill: Cesium.Color.PINK.withAlpha(0.5),
+                strokeWidth: 3,
+            }
+        )
+    );
+    
+
+</script>
+
+<style>
+    .cesium-viewer-toolbar,             /* 右上角按钮组 */
+    .cesium-viewer-animationContainer,  /* 左下角动画控件 */
+    .cesium-viewer-timelineContainer,   /* 时间线 */
+    .cesium-viewer-bottom               /* logo信息 */ {
+      display: none !important;
+    }
+
+    .cesium-widget-credits  /* 隐藏logo图片 */ {
+      display: none !important;
+    }
+
+    .cesium-viewer-fullscreenContainer  /* 全屏按钮 */ {
+      display: none !important;
+      position: absolute;
+      top: 0;
+    }
+
+</style>
+
+</html>

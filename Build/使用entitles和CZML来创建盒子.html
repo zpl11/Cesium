@@ -1,0 +1,114 @@
+<!--
+ * @Author: 赵鹏龙
+ * @Date: 2022-02-14 11:07:06
+ * @LastEditors: 赵鹏龙
+ * @LastEditTime: 2022-02-14 14:30:03
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地图上初始化正方体块</title>
+</head>
+<link rel="stylesheet" href="./Cesium/Widgets/widgets.css">
+<script src="./Cesium/Cesium.js"></script>
+
+<body>
+    <div id="cesiumContainer" class="fullSize"></div>
+    <div id="loadingOverlay"><h1>Loading...</h1></div>
+    <div id="toolbar"></div>
+</body>
+
+<script>
+    // 将 id 
+    // const viewer = new Cesium.Viewer("cesiumContainer");
+    // // entities 获取未绑定到特定源的实体集合
+    // let redBox = viewer.entities.add({
+    //     name:'red Box',
+    //     // 从经度纬度中返回一个以度为单位的笛卡尔坐标点
+    //     position: Cesium.Cartesian3.fromDegrees(-107.0,40.0,300000.0),
+
+    //     box:{
+    //         dimensions: new Cesium.Cartesian3(400000.0,30000.0,500000.0),
+    //         material: Cesium.Color.RED.withAlpha(0.5),
+    //         outline:true,
+    //         outlineColor:Cesium.Color.BLACK
+    //     }
+    // })
+
+    // viewer.zoomTo(viewer.entities)
+
+    let czml = [{
+        "id":"document",
+        "name":"box",
+        "version":"1.0"
+    },{
+        "id":"shape2",
+        "name":"Red box with black outline",
+        "position":{
+            "cartographicDegrees":[-107.0,40.0,300000.0]
+        },
+        "box":{
+            "dimensions":{
+                "cartesian":[400000.0,300000.0,500000.0]
+            },
+            "material":{
+                "solidColor":{
+                    "color":{
+                        "rgba":[255,0,0,128]
+                    }
+                }
+            },
+            "outline":true,
+            "outlineColor":{
+                "rgba":[0,0,0,255]
+            }
+        }
+    }]
+
+//     var czml = [{
+//     "id" : "document",
+//     "name" : "box",
+//     "version" : "1.0"
+// },{
+//     "id" : "shape2",
+//     "name" : "Red box with black outline",
+//     "position" : {
+//         "cartographicDegrees" : [-107.0, 40.0, 300000.0]
+//     },
+//     "box" : {
+//         "dimensions" : {
+//             "cartesian": [400000.0, 300000.0, 500000.0]
+//         },
+//         "material" : {
+//             "solidColor" : {
+//                 "color" : {
+//                     "rgba" : [255, 0, 0, 128]
+//                 }
+//             }
+//         },
+//         "outline" : true,
+//         "outlineColor" : {
+//             "rgba" : [0, 0, 0, 255]
+//         }
+//     }
+// }];
+
+var viewer = new Cesium.Viewer('cesiumContainer');
+var dataSourcePromise = Cesium.CzmlDataSource.load(czml);
+viewer.dataSources.add(dataSourcePromise);
+viewer.zoomTo(dataSourcePromise);
+
+
+
+// let viewer = new Cesium.Viewer('cesiumContainer')
+// let dataSourcePromise = Cesium.CzmlDataSource.load(czml)
+// viewer.dataSources.add(dataSourcePromise)
+// viewer.zoomTo(dataSourcePromise)
+
+</script>
+
+</html>
