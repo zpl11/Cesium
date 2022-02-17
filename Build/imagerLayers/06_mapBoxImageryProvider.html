@@ -2,7 +2,7 @@
  * @Author: 赵鹏龙
  * @Date: 2022-02-14 11:07:06
  * @LastEditors: 赵鹏龙
- * @LastEditTime: 2022-02-17 17:52:18
+ * @LastEditTime: 2022-02-17 17:46:55
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -24,12 +24,12 @@
 
 <script>
  const viewer = new Cesium.Viewer("cesiumContainer");
-  viewer.imageryLayers.removeAll()
+
 //  Provides tiled imagery hosted by Mapbox.
 // 提供 mapBox 托管的平铺图层
- let mapBoxProvider = new Cesium.MapboxStyleImageryProvider({
-      styleId : 'streets-v11'
-  }); 
+ let mapBoxProvider = new Cesium.MapboxImageryProvider({
+        mapId : 'mapbox.satellite'
+    }); 
 //  Provides tiled imagery using the Cesium ion REST API.
  viewer.imageryLayers.addImageryProvider(mapBoxProvider)
 

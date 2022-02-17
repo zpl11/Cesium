@@ -2,7 +2,7 @@
  * @Author: 赵鹏龙
  * @Date: 2022-02-14 11:07:06
  * @LastEditors: 赵鹏龙
- * @LastEditTime: 2022-02-15 11:28:53
+ * @LastEditTime: 2022-02-17 16:47:57
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>加载影像数据</title>
+    <title>加载 BingMap 为底图的文件 </title>
 </head>
 <link rel="stylesheet" href="./Cesium/Widgets/widgets.css">
 <script src="./Cesium/Cesium.js"></script>
@@ -24,7 +24,7 @@
 
 <script>
     const viewer = new Cesium.Viewer("cesiumContainer");
-    
+
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwY2EwMzY1YS04NGFhLTQwZTEtOTRhZS03MDA2ZGI1M2Y3NDMiLCJpZCI6ODIwNjAsImlhdCI6MTY0NDQ4ODQzMH0.iiwiX4is006N2sichIWMwIdwe0XPcMpSmi8ug8qUvA0'
     // 将球体表面的图层删除
     viewer.imageryLayers.remove(viewer.imageryLayers.get(0))
@@ -50,13 +50,21 @@
       show: true
     });
 
+    // bing 的地图, 去 https://www.bingmapsportal.com/Application# 中申请地图 key 值， 加载 bingMap 地图
+    let bingMapsImageryLayer = new Cesium.BingMapsImageryProvider({
+      url:'https://dev.virtualearth.net',
+      key:'Aliv6OuUTNSuoUcbYnpYLI2eDOuEfgjIJ7ty99xOzCx_81qnR_lOn1glFhnAOU1r',
+      mapStyle : Cesium.BingMapsStyle.AERIAL
+    })
 
-    viewer.imageryLayers.addImageryProvider(imageryType)
+    // 加载 arcgis 地图
+    viewer.imageryLayers.addImageryProvider(bingMapsImageryLayer)
 
     // 创建一个 debuggerCoordinates
     let tileCoordinates = new Cesium.TileCoordinatesImageryProvider()
     let tileCoordinatesLayer = viewer.imageryLayers.addImageryProvider(tileCoordinates)
     viewer.imageryLayers.addImageryProvider(tileCoordinatesLayer)
+    // 将对应的 layer 加载到前面
     viewer.imageryLayers.raiseToTop(tileCoordinatesLayer)
     
     
