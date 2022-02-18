@@ -2,8 +2,9 @@
  * @Author: 赵鹏龙
  * @Date: 2022-02-14 11:07:06
  * @LastEditors: 赵鹏龙
- * @LastEditTime: 2022-02-18 16:52:48
- * @Description: 
+ * @LastEditTime: 2022-02-18 11:03:45
+ * @Description: 请求 mapBoxImageryProvider 再 https://studio.mapbox.com/ 中请求和发布
+ * url username styleId accessToken scaleFactor(是否以 X2 的比例来加载底图)
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -23,13 +24,20 @@
 </body>
 
 <script>
-const viewer = new Cesium.Viewer("cesiumContainer");
-viewer.imageryLayers.removeAll();
+ const viewer = new Cesium.Viewer("cesiumContainer");
+ // 清除所有图层
+ viewer.imageryLayers.removeAll();
 //  Provides tiled imagery hosted by Mapbox.
 // 提供 mapBox 托管的平铺图层 , 请求 mapBox 官网提供的底图
- let mapBoxProvider = new Cesium.MapboxImageryProvider({
-        mapId:'mapbox.satellite',
-        accessToken:'pk.eyJ1IjoibHM4NzAwNjEwMTEiLCJhIjoiY2tqYXZlZ2JrMDI5bTJzcDJmdDNteGhsNyJ9.0wTn4B1ce9Q4U5GnPso5iA'
+// 来 mapBox 官网申请  https://studio.mapbox.com/  mapbox://styles/zhaopenglong/ckzrqm5m4008715qpl18ci0rz
+ let mapBoxProvider = new Cesium.MapboxStyleImageryProvider({
+  // mapbox://styles/zhaopenglong/ckzrqm5m4008715qpl18ci0rz
+  // https://api.mapbox.com/styles/v1/zhaopenglong/ckzrqm5m4008715qpl18ci0rz.html?title=view&access_token=pk.eyJ1Ijoiemhhb3Blbmdsb25nIiwiYSI6ImNreTRmYTZkNjBiaGkyd3E5a2xteWtrZ2IifQ.lSqxC5C-1mvJzA_HmvrGfg&zoomwheel=true&fresh=true#17.14/48.845933/2.358814
+    url:'https://api.mapbox.com/styles/v1',
+    username:'zhaopenglong',
+    styleId: 'ckzrqm5m4008715qpl18ci0rz',
+    accessToken: 'pk.eyJ1Ijoiemhhb3Blbmdsb25nIiwiYSI6ImNreTRmYTZkNjBiaGkyd3E5a2xteWtrZ2IifQ.lSqxC5C-1mvJzA_HmvrGfg',
+    scaleFactor:true
     }); 
 //  Provides tiled imagery using the Cesium ion REST API.
  viewer.imageryLayers.addImageryProvider(mapBoxProvider)

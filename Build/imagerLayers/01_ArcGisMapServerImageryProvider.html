@@ -2,7 +2,7 @@
  * @Author: 赵鹏龙
  * @Date: 2022-02-14 11:07:06
  * @LastEditors: 赵鹏龙
- * @LastEditTime: 2022-02-17 16:38:17
+ * @LastEditTime: 2022-02-18 09:14:46
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -27,30 +27,11 @@
 
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwY2EwMzY1YS04NGFhLTQwZTEtOTRhZS03MDA2ZGI1M2Y3NDMiLCJpZCI6ODIwNjAsImlhdCI6MTY0NDQ4ODQzMH0.iiwiX4is006N2sichIWMwIdwe0XPcMpSmi8ug8qUvA0'
     // 将球体表面的图层删除
-    viewer.imageryLayers.remove(viewer.imageryLayers.get(0))
-    // 添加对应的 imagery
-    // 添加 cesium 发布的服务
-    // let imageryType = new Cesium.IonImageryProvider({assetId:3954})
-    // ArcGisMapServerImageryProvider 添加的 arcGis 服务
-    // let imageryType = new Cesium.ArcGisMapServerImageryProvider({url : url})
-
-    // BingMapsImageryProvider 添加 天地图
-    var imageryType = new Cesium.WebMapTileServiceImageryProvider({
-      url:"http://t{s}.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk="+'d5c0feb94ca8d9315f627efd5dcb42ce',
-      
-      subdomains: ['0','1','2','3','4','5','6','7'],
-    //   wmts 的层名
-      layer: "tdtImgLayer",
-    //   wmts 的样式名称
-      style: "default",
-      // 要从服务器检索的 mime 类型
-      format: "image/jpeg",
-    //  用于WMTS请求的TileMatrixSet的标识符。
-      tileMatrixSetID: "GoogleMapsCompatible",//使用谷歌的瓦片切片方式
-      show: true
-    });
+    // viewer.imageryLayers.remove(viewer.imageryLayers.get(0))
+    viewer.imageryLayers.removeAll()
 
     // 提供由ArcGIS MapServer托管的平铺图像。 默认使用地图服务器的预缓存模块
+    // 请求的地图地址 https://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/4/6/11
     let arcGisMapImagerLayer = new Cesium.ArcGisMapServerImageryProvider({
       url:'https://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/'
     })

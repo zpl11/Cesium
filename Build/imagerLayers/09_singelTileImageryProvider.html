@@ -2,7 +2,7 @@
  * @Author: 赵鹏龙
  * @Date: 2022-02-14 11:07:06
  * @LastEditors: 赵鹏龙
- * @LastEditTime: 2022-02-18 09:22:04
+ * @LastEditTime: 2022-02-18 17:37:43
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -10,8 +10,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>加载网格图 </title>
+    <meta name="viewmport" content="width=device-width, initial-scale=1.0">
+    <title>单张图片请求</title>
 </head>
 <link rel="stylesheet" href="./Cesium/Widgets/widgets.css">
 <script src="./Cesium/Cesium.js"></script>
@@ -23,16 +23,14 @@
 </body>
 
 <script>
- const viewer = new Cesium.Viewer("cesiumContainer");
-//  删除全部图层
- viewer.imageryLayers.removeAll();
-// 生成网格
- let gridImageryLayer = new Cesium.GridImageryProvider()
- // gridImagerLayer 就是单纯的生成了网格，没有图片请求
- var tileCoordinatesLayer = viewer.imageryLayers.addImageryProvider(gridImageryLayer);
-
- imageryLayers.raiseToTop(tileCoordinatesLayer)
-
+const viewer = new Cesium.Viewer("cesiumContainer");
+viewer.imageryLayers.removeAll();
+//  Provides tiled imagery hosted by Mapbox.
+// 加载单张的图片
+const osm = new Cesium.SingleTileImageryProvider({
+    url : 'images/images.jfif'
+});
+viewer.imageryLayers.addImageryProvider(osm)
 
 </script>
 
