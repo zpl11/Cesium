@@ -2,8 +2,8 @@
  * @Author: 赵鹏龙
  * @Date: 2022-02-14 11:07:06
  * @LastEditors: 赵鹏龙
- * @LastEditTime: 2022-02-21 17:35:06
- * @Description: GoogleEarth 请求不到
+ * @LastEditTime: 2022-02-21 11:29:57
+ * @Description: 
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewmport" content="width=device-width, initial-scale=1.0">
-    <title>VRTheWorldTerrainProvider三维图层</title>
+    <title>ArcGISTiledElevationTerrainProvider三维地势</title>
 </head>
 <link rel="stylesheet" href="./Cesium/Widgets/widgets.css">
 <script src="./Cesium/Cesium.js"></script>
@@ -24,25 +24,12 @@
 
 <script>
 const viewer = new Cesium.Viewer("cesiumContainer");
-// 一个TerrainProvider，通过细分从VT MÄK VR-TheWorld服务器检索的高度地图生成地形几何。
-const vrTheWorldProvider = new Cesium.VRTheWorldTerrainProvider({
-  url: "http://www.vr-theworld.com/vr-theworld/tiles1.0.0/73/",
-  credit: "Terrain data courtesy VT MÄK",
-});
-// 加载三维图像
-viewer.terrainProvider = vrTheWorldProvider;
-// 加载 CustomDataSource 源
-const dataSource = new Cesium.CustomDataSource('myData');
-
-const entity = dataSource.entities.add({
-   position : Cesium.Cartesian3.fromDegrees(1, 2, 0),
-   billboard : {
-       image : 'image.png'
-   }
-});
-
-viewer.dataSources.add(dataSource);
-
+// viewer.imageryLayers.removeAll();
+const terrainProvider = new Cesium.ArcGISTiledElevationTerrainProvider({
+    url:
+      "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer",
+  });
+viewer.terrainProvider = terrainProvider;
 
 </script>
 
